@@ -25,7 +25,6 @@ imageWidth = 100
 image = pygame.image.load(r'image/whitebird.png')
 
 # prepare for game over function
-
 def replay_or_quit():
     for event in pygame.event.get([pygame.KEYDOWN, pygame.KEYUP, pygame.QUIT]):
         if event.type == pygame.QUIT:
@@ -82,7 +81,7 @@ def main():
     y_block = 0
     block_width = 70
     block_height = randint(0,height)
-    gap = imageHeight * 1.5
+    gap = imageHeight * 3
     block_move = 3
     
     while not game_over:
@@ -115,6 +114,15 @@ def main():
         if x_block < (-1*block_width):
             x_block = width
             block_height = randint(0, (width/2))
+            
+        if x + imageWidth > x_block:
+            if x < x_block + block_width:
+                print('possibly within the bounderies of x upper')
+                if y < block_height:
+                    print('Y corossover UPPER')
+                    if x - imageWidth < block_width + x_block:
+                        print('game over hit upper')
+                        gameOver()
         
         pygame.display.update()
         clock.tick(60)
